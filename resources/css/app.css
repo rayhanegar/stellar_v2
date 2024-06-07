@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:ital,wght@0,400..900;1,400..900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+h1 {
+    font-family: 'Schibsted Grotesk';
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+h2 {
+    font-family: 'Schibsted Grotesk';
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+h3 {
+    font-family: 'Schibsted Grotesk';
+    font-size: 1.5rem;
+    font-weight: normal;
+}
+
+p {
+    font-family: 'Schibsted Grotesk';
+    font-size: 1rem;
+}
