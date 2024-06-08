@@ -3,13 +3,13 @@
     import { computed } from 'vue';
 
     defineProps(['journal']);
-    const formattedDate = (journal) => {
-        const date = new Date(journal.created_at);
-        const options = { year: 'numeric', month: 'long', day: 'numeric' };
-        const dateParts = new Intl.DateTimeFormat('en-US', options).formatToParts(date);
-        const formattedDate = `${dateParts.find(part => part.type === 'month').value} ${dateParts.find(part => part.type === 'day').value} ${dateParts.find(part => part.type === 'year').value}`;
-        return formattedDate;
-    };
+    // const formattedDate = (journal) => {
+    //     const date = new Date(journal.created_at);
+    //     const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    //     const dateParts = new Intl.DateTimeFormat('en-US', options).formatToParts(date);
+    //     const formattedDate = `${dateParts.find(part => part.type === 'month').value} ${dateParts.find(part => part.type === 'day').value} ${dateParts.find(part => part.type === 'year').value}`;
+    //     return formattedDate;
+    // };
 
     const shortContent = (journal) => {
         return journal.content.length > 50 ? journal.content.slice(0, 50) + '...' : journal.content;
@@ -25,7 +25,7 @@
             </svg>
         </div>
         <div class="w-full h-full flex flex-col items-start justify-end px-3 py-3 space-y-3 ">
-            <p class="font-light">{{ formattedDate(journal) }}</p>
+            <p class="font-light">{{ journal.created_at }}</p>
             <h3 class="font-bold">{{ journal.title }}</h3>
             <p class="break-words">{{ shortContent(journal) }}</p>
         </div>

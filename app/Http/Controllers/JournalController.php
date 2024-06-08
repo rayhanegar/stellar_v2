@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Auth;
 // use Illuminate\Http\Response;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -18,7 +19,8 @@ class JournalController extends Controller
      */
     public function index(Request $request): Response
     {
-        $query = Journal::with('user:id')->latest();
+        $user = Auth::user();
+        $query = Journal::where('user_id', $user->id)->latest();
 
         if ($request->input('filter') === 'today') {
             $query->whereDate('created_at', now()->toDateString());
@@ -29,7 +31,7 @@ class JournalController extends Controller
                 'id' => $journal->id,
                 'title' => $journal->title,
                 'content' => $journal->content,
-                'created_at' => $journal->created_at->format('d/m/Y'),
+                'created_at' => $journal->created_at->format('M d, Y'),
                 'user' => $journal->user,
             ];
         });
