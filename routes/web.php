@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\JournalController;
+use App\Http\Controllers\SnapController; 
 use App\Http\Controllers\ProfileController;
 use App\Models\Journal;
 use Illuminate\Foundation\Application;
@@ -22,6 +23,7 @@ Route::get('/dashboard', function () {
     $user = Auth::user();
     $todayJournals = Journal::where('user_id', $user->id)
                             ->whereDate('created_at', Carbon::today())
+                            ->latest()
                             ->get();
 
     return Inertia::render('Dashboard', [
@@ -36,11 +38,9 @@ Route::resource('journals', JournalController::class)
     ->middleware(['auth', 'verified']);
 
 
-Route::get('/snaps', function () {
-    return Inertia::render('Snaps', [
-       'user' => Auth::user(), 
-    ]);
-})->middleware(['auth', 'verified'])->name('snaps');
+Route::resource('snaps', SnapController::class)
+    ->only(['index', 'store', 'update', 'destroy'])
+    ->middleware(['auth', 'verified']); 
 
 Route::get('/reflections', function () {
     return Inertia::render('Reflections', [

@@ -20,6 +20,7 @@ const showPreviewModal = ref(false);
 const selectedJournal = ref(null);
 
 const openPreviewModal = (journal) => {
+    console.log("Opening journal:", journal);
     selectedJournal.value = journal;
     showPreviewModal.value = true;
 };

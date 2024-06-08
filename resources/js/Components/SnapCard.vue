@@ -2,17 +2,17 @@
 
     import { computed } from 'vue';
 
-    defineProps(['journal']);
-    const formattedDate = (journal) => {
-        const date = new Date(journal.created_at);
+    defineProps(['snap']);
+    const formattedDate = (snap) => {
+        const date = new Date(snap.created_at);
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
         const dateParts = new Intl.DateTimeFormat('en-US', options).formatToParts(date);
         const formattedDate = `${dateParts.find(part => part.type === 'month').value} ${dateParts.find(part => part.type === 'day').value} ${dateParts.find(part => part.type === 'year').value}`;
         return formattedDate;
     };
 
-    const shortContent = (journal) => {
-        return journal.content.length > 50 ? journal.content.slice(0, 50) + '...' : journal.content;
+    const shortContent = (snap) => {
+        return snap.content.length > 50 ? snap.content.slice(0, 20) + '...' : snap.content;
     };
 
 </script>
@@ -25,9 +25,9 @@
             </svg>
         </div>
         <div class="w-full h-full flex flex-col items-start justify-end px-3 py-3 space-y-3 ">
-            <p class="font-light">{{ formattedDate(journal) }}</p>
-            <h3 class="font-bold">{{ journal.title }}</h3>
-            <p class="break-words">{{ shortContent(journal) }}</p>
+            <p class="font-light">{{ formattedDate(snap) }}</p>
+            <h3 class="font-bold">{{ snap.url }}</h3>
+            <p class="break-words">{{ shortContent(snap) }}</p>
         </div>
     </div>
 </template>

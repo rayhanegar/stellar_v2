@@ -16,11 +16,26 @@ class JournalController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): Response
+    public function index(Request $request): Response
     {
+        $query = Journal::with('user:id')->latest();
+
+        if ($request->input('filter') === 'today') {
+            $query->whereDate('created_at', now()->toDateString());
+        }
+
+        $journals = $query->paginate(5)->through(function ($journal) {
+            return [
+                'id' => $journal->id,
+                'title' => $journal->title,
+                'content' => $journal->content,
+                'created_at' => $journal->created_at->format('d/m/Y'),
+                'user' => $journal->user,
+            ];
+        });
+
         return Inertia::render('Journals/Index', [
-            // insert journals as prop here
-            'journals' =>Journal::with('user:id')->latest()->get(),
+            'journals' => $journals,
         ]);
     }
 

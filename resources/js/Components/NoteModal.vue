@@ -24,7 +24,6 @@
 </template>
 
 <script>
-
 import { Inertia } from '@inertiajs/inertia';
 
 export default {
@@ -44,6 +43,7 @@ export default {
 
     methods: {
         closeModal() {
+            console.log('closing modal');
             this.$emit('update:modelValue', false);
             this.title = '';
             this.content = '';
@@ -51,10 +51,12 @@ export default {
 
         saveDraft() {
             // Draft saving logic here
+            console.log('saving draft');
             this.$emit('update:modelValue', false);
         },
 
         submitJournal() {
+            console.log('submitting journal');
             Inertia.post(route('journals.store'), {
                 title: this.title,
                 content: this.content

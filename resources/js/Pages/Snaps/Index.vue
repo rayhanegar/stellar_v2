@@ -1,30 +1,29 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head, usePage } from '@inertiajs/vue3';
+import { Head, usePage} from '@inertiajs/vue3';
 import TodayCard from '@/Components/TodayCard.vue';
-import JournalCard from '@/Components/JournalCard.vue'; 
-import NoteModal from '@/Components/NoteModal.vue';
-import PreviewNoteModal from '@/Components/PreviewNoteModal.vue'; 
+import SnapCard from '@/Components/SnapCard.vue';
 import AddLogo from '@/Components/AddLogo.vue';
+import SnapModal from '@/Components/SnapModal.vue'; 
 import { ref, computed } from 'vue';
 import { Inertia } from '@inertiajs/inertia';
 
 const { props } = usePage();
-const journals = computed(() => props.journals.data);
-const links = computed(() => props.journals.links);
+const snaps = computed(() => props.snaps.data);
+const links = computed(() => props.snaps.links);
 
 // defineProps(['journals']);
 
-const showModal = ref(false);
-const showPreviewModal = ref(false); 
-const selectedJournal = ref(null);
+const showModalSnap = ref(false);
+const showPreviewModalSnap = ref(false); 
+const selectedSnap = ref(null);
 
 const filter = ref('');
 
 const openPreviewModal = (journal) => {
     console.log("Opening journal:", journal);
-    selectedJournal.value = journal;
-    showPreviewModal.value = true;
+    selectedSnap.value = journal;
+    showPreviewModalSnap.value = true;
 };
 
 function navigate(pageUrl) {
@@ -41,14 +40,12 @@ function fetchJournals(selectedFilter=''){
 </script>
 
 <template>
-    <Head>
-        <title>Journals</title>
-    </Head>
+    <Head title="Snaps" />
 
     <AuthenticatedLayout>
         <template #header>
-            <h2 class="text-center">Journals</h2>
-            <p class="text-center">Here's what you've written so far.</p>
+            <h2 class="text-center">Snaps.</h2>
+            <p class="text-center">Galleries of photos that represents your day.</p>
         </template>
 
         <div class="h-screen w-full flex flex-col space-y-4">
@@ -61,29 +58,29 @@ function fetchJournals(selectedFilter=''){
                 </button>
             </div>
             <div class="h-full grid grid-cols-3 grid-rows-2 gap-5">
-                <JournalCard @click="openPreviewModal(journal)"
+                <!-- <SnapCard @click="openPreviewModal(journal)"
                     v-for="journal in journals"
                     :key="journal.id"
                     :journal="journal"
-                />
-                <TodayCard @click="showModal = true">
+                /> -->
+                <TodayCard @click="showModalSnap = true">
                     <template #icon>
                         <AddLogo />
                     </template>
                 </TodayCard>
-            </div>
-            <div class="flex flex-row justify-between">
-                <button @click="navigate(props.journals.prev_page_url)" :disabled="!props.journals.prev_page_url">
-                    Previous
-                </button>
-                <span>Page {{ props.journals.current_page }} of {{ props.journals.last_page }}</span>
-                <button @click="navigate(props.journals.next_page_url)" :disabled="!props.journals.next_page_url">
-                    Next
-                </button>
+                <!-- <div class="flex flex-row justify-between">
+                    <button @click="navigate(props.journals.prev_page_url)" :disabled="!props.journals.prev_page_url">
+                        Previous
+                    </button>
+                    <span>Page {{ props.journals.current_page }} of {{ props.journals.last_page }}</span>
+                    <button @click="navigate(props.journals.next_page_url)" :disabled="!props.journals.next_page_url">
+                        Next
+                    </button> -->
+                <!-- </div> -->
             </div>
         </div>
     </AuthenticatedLayout>
 
-    <NoteModal v-model="showModal"/>
-    <PreviewNoteModal v-model="showPreviewModal" :journal="selectedJournal"/>
+    <SnapModal v-model="showModalSnap"/>
+
 </template>
