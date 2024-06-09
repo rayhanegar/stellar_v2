@@ -5,14 +5,16 @@ import TodayCard from '@/Components/TodayCard.vue';
 import SnapCard from '@/Components/SnapCard.vue';
 import AddLogo from '@/Components/AddLogo.vue';
 import SnapModal from '@/Components/SnapModal.vue'; 
+import PreviewSnapModal from '@/Components/PreviewSnapModal.vue'; 
 import { ref, computed } from 'vue';
 import { Inertia } from '@inertiajs/inertia';
+
 
 const { props } = usePage();
 const snaps = computed(() => props.snaps.data);
 const links = computed(() => props.snaps.links);
 
-// defineProps(['journals']);
+// defineProps(['snaps']);
 
 const showModalSnap = ref(false);
 const showPreviewModalSnap = ref(false); 
@@ -20,9 +22,9 @@ const selectedSnap = ref(null);
 
 const filter = ref('');
 
-const openPreviewModal = (journal) => {
-    console.log("Opening journal:", journal);
-    selectedSnap.value = journal;
+const openPreviewSnapModal = (snap) => {
+    console.log("Opening snap:", snap);
+    selectedSnap.value = snap;
     showPreviewModalSnap.value = true;
 };
 
@@ -32,16 +34,16 @@ function navigate(pageUrl) {
     }
 }
 
-function fetchJournals(selectedFilter=''){
+function fetchsnaps(selectedFilter=''){
     filter.value = selectedFilter;
-    Inertia.get('/journals', {filter: selectedFilter}, {preserveState: false});
+    Inertia.get('/snaps', {filter: selectedFilter}, {preserveState: false});
 }
 
 </script>
 
 <template>
     <Head title="Snaps" />
-
+    <!-- <img src="..\..\..\..\storage\app\public\postedsnaps\2DWwAnHBsP9OCVdH7jryN3EUYxZ6UQrAXSsgAifz.jpg" alt="keloadga"> -->
     <AuthenticatedLayout>
         <template #header>
             <h2 class="text-center">Snaps.</h2>
@@ -50,37 +52,38 @@ function fetchJournals(selectedFilter=''){
 
         <div class="h-screen w-full flex flex-col space-y-4">
             <div class="w-full h-14 flex flex-row space-x-4">
-                <button :class="{'bg-white text-black font-bold': filter === ''}" @click="fetchJournals('')" class="w-1/2 h-full rounded-lg">
+                <button :class="{'bg-white text-black font-bold': filter === ''}" @click="fetchsnaps('')" class="w-1/2 h-full rounded-lg">
                     <p>All Entries</p>
                 </button>
-                <button :class="{'bg-white text-black font-bold': filter === 'today'}" @click="fetchJournals('today')" class="w-1/2 h-full rounded-lg">
+                <button :class="{'bg-white text-black font-bold': filter === 'today'}" @click="fetchsnaps('today')" class="w-1/2 h-full rounded-lg">
                     <p>Today Entries</p>
                 </button>
             </div>
             <div class="h-full grid grid-cols-3 grid-rows-2 gap-5">
-                <!-- <SnapCard @click="openPreviewModal(journal)"
-                    v-for="journal in journals"
-                    :key="journal.id"
-                    :journal="journal"
-                /> -->
+                <SnapCard @click="openPreviewSnapModal(snap)"
+                    v-for="snap in snaps"
+                    :key="snap.id"
+                    :snap="snap"
+                />
                 <TodayCard @click="showModalSnap = true">
                     <template #icon>
                         <AddLogo />
                     </template>
                 </TodayCard>
-                <!-- <div class="flex flex-row justify-between">
-                    <button @click="navigate(props.journals.prev_page_url)" :disabled="!props.journals.prev_page_url">
+                </div>
+                <div class="flex flex-row justify-between">
+                    <button @click="navigate(props.snaps.prev_page_url)" :disabled="!props.snaps.prev_page_url">
                         Previous
                     </button>
-                    <span>Page {{ props.journals.current_page }} of {{ props.journals.last_page }}</span>
-                    <button @click="navigate(props.journals.next_page_url)" :disabled="!props.journals.next_page_url">
+                    <span>Page {{ props.snaps.current_page }} of {{ props.snaps.last_page }}</span>
+                    <button @click="navigate(props.snaps.next_page_url)" :disabled="!props.snaps.next_page_url">
                         Next
-                    </button> -->
-                <!-- </div> -->
-            </div>
+                    </button> 
+                </div>
         </div>
     </AuthenticatedLayout>
 
     <SnapModal v-model="showModalSnap"/>
+    <PreviewSnapModal v-model="showPreviewModalSnap" :snap="selectedSnap"/>
 
 </template>

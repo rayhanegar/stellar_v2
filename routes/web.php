@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\JournalController;
-use App\Http\Controllers\SnapController; 
+use App\Http\Controllers\SnapController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Journal;
 use Illuminate\Foundation\Application;
@@ -22,9 +22,9 @@ Route::get('/dashboard', function () {
     $date = Carbon::now()->format('D, F j');
     $user = Auth::user();
     $todayJournals = Journal::where('user_id', $user->id)
-                            ->whereDate('created_at', Carbon::today())
-                            ->latest()
-                            ->get();
+        ->whereDate('created_at', Carbon::today())
+        ->latest()
+        ->get();
 
     return Inertia::render('Dashboard', [
         'user' => $user,
@@ -40,11 +40,11 @@ Route::resource('journals', JournalController::class)
 
 Route::resource('snaps', SnapController::class)
     ->only(['index', 'store', 'update', 'destroy'])
-    ->middleware(['auth', 'verified']); 
+    ->middleware(['auth', 'verified']);
 
 Route::get('/reflections', function () {
     return Inertia::render('Reflections', [
-       'user' => Auth::user(), 
+        'user' => Auth::user(),
     ]);
 })->middleware(['auth', 'verified'])->name('reflections');
 
@@ -54,4 +54,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
