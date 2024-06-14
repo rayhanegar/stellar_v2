@@ -6,6 +6,7 @@ use App\Models\Snap;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -17,7 +18,8 @@ class SnapController extends Controller
      */
     public function index(Request $request): Response
     {
-        $query = Snap::with('user:id')->latest();
+        $user = Auth::user();
+        $query = Snap::where('user_id', $user->id)->latest();
 
         if ($request->input('filter') === 'today') {
             $query->whereDate('created_at', now()->toDateString());
