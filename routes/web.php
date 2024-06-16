@@ -4,6 +4,7 @@ use App\Http\Controllers\JournalController;
 use App\Http\Controllers\SnapController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Journal;
+use App\Models\Snap;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -25,11 +26,14 @@ Route::get('/dashboard', function () {
         ->whereDate('created_at', Carbon::today())
         ->latest()
         ->get();
+    $todaySnaps = Snap::all();
+    dd($todaySnaps);
 
     return Inertia::render('Dashboard', [
         'user' => $user,
         'date' => $date,
         'todayJournals' => $todayJournals,
+        'todaySnaps' => $todaySnaps,
     ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 

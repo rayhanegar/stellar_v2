@@ -12,7 +12,6 @@ import { Inertia } from '@inertiajs/inertia';
 
 const { props } = usePage();
 const snaps = computed(() => props.snaps.data);
-const links = computed(() => props.snaps.links);
 
 // defineProps(['snaps']);
 
@@ -29,9 +28,10 @@ const openPreviewSnapModal = (snap) => {
 };
 
 function navigate(pageUrl) {
-    if (pageUrl) {
-        Inertia.visit(pageUrl, { data: { filter: filter.value} });
-    }
+    console.log("testing");
+    // if (pageUrl) {
+    //     Inertia.visit(pageUrl, { data: { filter: filter.value} });
+    // }
 }
 
 function fetchsnaps(selectedFilter=''){
@@ -43,7 +43,6 @@ function fetchsnaps(selectedFilter=''){
 
 <template>
     <Head title="Snaps" />
-    <!-- <img src="..\..\..\..\storage\app\public\postedsnaps\2DWwAnHBsP9OCVdH7jryN3EUYxZ6UQrAXSsgAifz.jpg" alt="keloadga"> -->
     <AuthenticatedLayout>
         <template #header>
             <h2 class="text-center">Snaps.</h2>

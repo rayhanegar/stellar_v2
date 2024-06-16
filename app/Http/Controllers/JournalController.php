@@ -46,7 +46,7 @@ class JournalController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**

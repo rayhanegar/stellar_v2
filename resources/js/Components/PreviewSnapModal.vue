@@ -25,9 +25,9 @@
                         Delete
                     </button>
                 </div>
-                <button v-if="!isEdit" @click="editMode" class="bg-black text-white font-bold hover:bg-white hover:text-black py-2 px-4 rounded">
+                <!-- <button v-if="!isEdit" @click="editMode" class="bg-black text-white font-bold hover:bg-white hover:text-black py-2 px-4 rounded">
                     Edit
-                </button>
+                </button> -->
             </div>
         </div>
     </div>
@@ -87,13 +87,20 @@
             console.log("testing"); 
         }
 
-        function saveChanges(){
+        function saveChanges() {
             Inertia.put(route('snaps.update', props.snap.id), {
-                url: computedUrl,
-                title: editableTitle.value,
-            })
-            closeModal(); 
+                url: computedUrl,           
+                title: this.editableContent 
+            }).then(() => {
+                // Handle success
+                console.log('Data updated successfully!');
+                closeModal(); 
+            }).catch((error) => {
+                // Handle error
+                console.error('Error updating data:', error);
+            });
         }
+
 
         return { saveChanges, editMode, isEdit, computedTitle, computedUrl, closeModal, deleteSnap };
     }
