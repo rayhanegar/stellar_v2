@@ -39,7 +39,7 @@ const limitedJournals = computed(() => props.todayJournals.slice(0,3));
             <p class="text-center">Today is {{ date }}. Let's do something good for yourself.</p>
         </template>
 
-        <div class="h-screen w-full flex flex-col">
+        <div class="h-screen w-full flex flex-col overflow-y-auto">
             <div class="h-full w-full grid grid-cols-2 gap-5">
                 <div>
                     <TodayCard @click="showModal = true" text="Write your thoughts, plan your day, and more.">
@@ -49,7 +49,7 @@ const limitedJournals = computed(() => props.todayJournals.slice(0,3));
                     </TodayCard>
                 </div>
                 <div>
-                    <TodayCard text="Let's reflect on what you learn and how you feel today.">
+                    <TodayCard :href="route('reflections')" text="Let's reflect on what you learn and how you feel today.">
                         <template #icon>
                             <ReflectLogo/>
                         </template>

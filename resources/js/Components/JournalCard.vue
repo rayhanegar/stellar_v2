@@ -15,6 +15,10 @@
         return journal.content.length > 50 ? journal.content.slice(0, 50) + '...' : journal.content;
     };
 
+    const shortTitle = (journal) => {
+        return journal.title.length > 30 ? journal.title.slice(0, 30) + '...' : journal.title;
+    }
+
 </script>
 
 <template>
@@ -26,7 +30,7 @@
         </div>
         <div class="w-full h-full flex flex-col items-start justify-end px-3 py-3 space-y-3 ">
             <p class="font-light">{{ journal.created_at }}</p>
-            <h3 class="font-bold">{{ journal.title }}</h3>
+            <h3 class="font-bold">{{ shortTitle(journal) }}</h3>
             <p class="break-words">{{ shortContent(journal) }}</p>
         </div>
     </div>

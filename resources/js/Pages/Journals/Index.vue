@@ -51,7 +51,7 @@ function fetchJournals(selectedFilter=''){
             <p class="text-center">Here's what you've written so far.</p>
         </template>
 
-        <div class="h-screen w-full flex flex-col space-y-4">
+        <div class="w-full flex flex-col space-y-4 overflow-y-auto">
             <div class="w-full h-14 flex flex-row space-x-4">
                 <button :class="{'bg-white text-black font-bold': filter === ''}" @click="fetchJournals('')" class="w-1/2 h-full rounded-lg">
                     <p>All Entries</p>
