@@ -52,7 +52,7 @@ const showingNavigationDropdown = ref(false);
     </nav>
 
     <!-- Main Content -->
-    <div class="flex-1 bg-black/20 backdrop-blur-lg rounded-lg border border-mediumgrey shadow-lg px-5 mx-5 py-5 my-5 overflow-auto">
+    <div class="flex-1 bg-black/20 backdrop-blur-lg rounded-lg border border-mediumgrey shadow-lg px-5 mx-5 py-5 my-5 overflow-y-auto overflow-x-clip">
       <!-- Page Heading -->
       <header class="text-white" v-if="$slots.header">
         <div class="w-full mx-auto my-2 py-2 px-2">

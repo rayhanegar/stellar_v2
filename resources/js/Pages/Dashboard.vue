@@ -49,7 +49,7 @@ const limitedJournals = computed(() => props.todayJournals.slice(0,3));
                     </TodayCard>
                 </div>
                 <div>
-                    <TodayCard text="Let's reflect on what you learn and how you feel about today.">
+                    <TodayCard text="Let's reflect on what you learn and how you feel today.">
                         <template #icon>
                             <ReflectLogo/>
                         </template>
