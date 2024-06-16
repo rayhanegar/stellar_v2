@@ -77,7 +77,7 @@ const limitedJournals = computed(() => props.todayJournals.slice(0,3));
                 </div>
                 <div class="h-full w-full m-0 p-0 space-y-5">
                     <h3>Today's Journals.</h3>
-                    <div v-if="limitedJournals.length" class="max-h-1/2 flex flex-col space-y-4 overflow-auto">
+                    <div v-if="limitedJournals.length" class="max-h-1/2 flegitx flex-col space-y-4 overflow-auto">
                         <TodayJournal @click="openPreviewModal(journal)" v-for="journal in limitedJournals" 
                             :key="journal.id" 
                             :journal="journal" 
