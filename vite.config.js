@@ -26,7 +26,7 @@ export default defineConfig({
     build: {
         outDir: path.resolve(__dirname, 'public/build'), // Update your build path
         emptyOutDir: true,
-        manifest: true, // Add a manifest to map the assets
+        manifest: true, 
         rollupOptions: {
             input: 'resources/js/app.js',
         }
