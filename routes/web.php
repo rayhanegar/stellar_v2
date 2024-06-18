@@ -27,7 +27,7 @@ Route::get('/dashboard', function () {
         ->latest()
         ->get();
     $todaySnaps = Snap::all();
-    dd($todaySnaps);
+    // dd($todaySnaps);
 
     return Inertia::render('Dashboard', [
         'user' => $user,
