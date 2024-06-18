@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Snap;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 
