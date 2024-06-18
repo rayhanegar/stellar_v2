@@ -29,11 +29,13 @@ const openPreviewModal = (journal) => {
 
 function navigate(pageUrl) {
     if (pageUrl) {
+        console.log("Navigate clicked");
         Inertia.visit(pageUrl, { data: { filter: filter.value} });
     }
 }
 
 function fetchJournals(selectedFilter=''){
+    console.log("Fetching journals with filter: ", selectedFilter);
     filter.value = selectedFilter;
     Inertia.get('/journals', {filter: selectedFilter}, {preserveState: false});
 }
